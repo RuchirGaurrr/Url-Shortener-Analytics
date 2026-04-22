@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import Shorturl
 
-# Register your models here.
+@admin.register(Shorturl)
+class ShorturlAdmin(admin.ModelAdmin):
+    list_display = ['slug', 'user', 'original_url', 'clickcount', 'is_active', 'created_at']
+    search_fields = ['slug', 'original_url', 'user__username']
+    list_filter = ['is_active', 'created_at']
+    readonly_fields = ['clickcount', 'created_at']
