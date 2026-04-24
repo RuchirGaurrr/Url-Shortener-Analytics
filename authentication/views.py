@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import RegisterSerializer, UserSerializer
 
-class registerView(APIView):
+class RegisterView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):

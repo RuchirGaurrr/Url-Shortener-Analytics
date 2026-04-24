@@ -8,13 +8,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'email', 'password']
 
-        def create(self, validated_data):
-            user = User.objects.create_user(
-                username = validated_data['username'],
-                email= validated_data['email'],
-                password= validated_data['password']
-            )
-            return user
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username = validated_data['username'],
+            email= validated_data['email'],
+            password= validated_data['password']
+        )
+        return user
         
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
