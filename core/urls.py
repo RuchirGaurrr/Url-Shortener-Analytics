@@ -19,5 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #Authentication (register,login,refresh,logout) path
     path('api/auth/', include('authentication.urls')),
+    #short urls and short-url-detail path
+    path('api/', include('shortener.urls')),
 ]
