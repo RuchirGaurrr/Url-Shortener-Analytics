@@ -23,4 +23,6 @@ urlpatterns = [
     path('api/auth/', include('authentication.urls')),
     #short urls and short-url-detail path
     path('api/', include('shortener.urls')),
+    #redirect
+    path('', include('analytics.urls')),
 ]
