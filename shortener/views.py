@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import Shorturl
 from .serializers import ShorturlSerializer
+from .rate_limiter import check_rate_limit
 
 class ShorturlView(APIView):
     permission_classes = [IsAuthenticated]
@@ -14,6 +15,10 @@ class ShorturlView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request):
+        if not check_rate_limit(request.user.id):
+            return Response(
+                {'error: Limit exceeded. Max 20 URLs per day.'}, status=status.HTTP_429_TOO_MANY_REQUESTS
+            )
         serializer = ShorturlSerializer(data=request.data, context = {'request':request})
         if serializer.is_valid():
             serializer.save()
