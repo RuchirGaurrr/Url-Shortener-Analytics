@@ -7,3 +7,7 @@ class ShorturlAdmin(admin.ModelAdmin):
     search_fields = ['slug', 'original_url', 'user__username']
     list_filter = ['is_active', 'created_at']
     readonly_fields = ['clickcount', 'created_at']
+    list_per_page = 25
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('user')

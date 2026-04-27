@@ -5,5 +5,9 @@ from .models import Click
 class ClickAdmin(admin.ModelAdmin):
     list_display = ['short_url', 'timestamp', 'device', 'browser', 'country', 'ip_address']
     search_fields = ['short_url__slug', 'country', 'browser']
-    list_display = ['device', 'browser', 'country']
+    list_filter = ['device', 'browser', 'country']
     readonly_fields = ['short_url', 'timestamp', 'ip_address', 'device', 'browser', 'country']
+    list_per_page = 50
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('short_url__user')
